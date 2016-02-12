@@ -1,5 +1,9 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import *
 
 
-def test(request):
-    return render_to_response('mainApp/index.html')
+def login(request):
+    return render(request, 'mainApp/login.html', {})
+
+
+def homepage(request):
+    return render(request, 'mainApp/index.html', {})
