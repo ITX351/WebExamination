@@ -57,4 +57,4 @@ target/
 .idea/
 
 #Database
-/db.sqlite3
+#/db.sqlite3  # 数据库文件不大, 还是不要无视了
