@@ -6,6 +6,12 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class MyUser(models.Model):  # 自定义用户
+    user = models.OneToOneField(User)
+    nickname = models.CharField(max_length = 100)
+    authority = models.IntegerField(default = 0)  # 权限, 0 学生 1 老师 2 管理员
+
+
 class Klass(models.Model):  # 班级表, 类名冲突
     year = models.IntegerField()  # 年份
     number = models.IntegerField()  # 班号
@@ -38,9 +44,9 @@ class Problem(models.Model):  # 题库表
     correctTime = models.IntegerField(default = 0)  # 正确解答次数
     tryTime = models.IntegerField(default = 0)  # 总解答次数
     createdAt = models.DateTimeField(auto_created = True)  # 创建时间
-    creator = models.ForeignKey(User, related_name = 'problem_creator')  # 创建者
+    creator = models.ForeignKey(MyUser, related_name = 'problem_creator')  # 创建者
     changedAt = models.DateTimeField(auto_now = True)  # 最后一次编辑时间
-    changer = models.ForeignKey(User, related_name = 'problem_changer')  # 最后一次编辑者
+    changer = models.ForeignKey(MyUser, related_name = 'problem_changer')  # 最后一次编辑者
 
     def __unicode__(self):
         return self.description
@@ -51,7 +57,7 @@ class Examination(models.Model):  # 考试表
     startTime = models.DateTimeField()  # 考试开始时间
     endTime = models.DateTimeField()  # 考试结束时间
     createdAt = models.DateTimeField(auto_created = True)
-    creator = models.ForeignKey(User, related_name = 'examination_creator')
+    creator = models.ForeignKey(MyUser, related_name = 'examination_creator')
     problems = models.ManyToManyField(Problem, through = 'ExaminationProblem')
 
     def __unicode__(self):
