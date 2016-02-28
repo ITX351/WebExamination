@@ -1,14 +1,57 @@
 {% extends "mainApp/base.html" %}
 {% load staticfiles %}
+{% load myFilter %}
 {% block title %}题库管理{% endblock %}
 
 {% block content %}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 well">
-            </div>
-        </div>
+    <div class="col-md-12">
+        <table class="table table-hover table-responsive table-condensed dashboard-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>题面</th>
+                    <th>标准答案</th>
+                    <th>选项1</th>
+                    <th>选项2</th>
+                    <th>选项3</th>
+                    <th>选项4</th>
+                    <th>选项5</th>
+                    <th>是否公开</th>
+                    <th>正确解答次数</th>
+                    <th>总解答次数</th>
+                    <th>创建时间</th>
+                    <th>创建者</th>
+                    <th>最后一次编辑时间</th>
+                    <th>最后一次编辑者</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in problem_list %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.solution | solution_num_to_alpha }}</td>
+                        <td>{{ item.choice1 }}</td>
+                        <td>{{ item.choice2 }}</td>
+                        <td>{{ item.choice3 }}</td>
+                        <td>{{ item.choice4 }}</td>
+                        <td>{{ item.choice5 }}</td>
+                        <td>{{ item.public }}</td>
+                        <td>{{ item.correctTime }}</td>
+                        <td>{{ item.tryTime }}</td>
+                        <td>{{ item.createdAt|date:"Y-m-d" }}{{ item.createdAt|time:"H:i:s" }}</td>
+                        <td>{{ item.creator.nickname }}</td>
+                        <td>{{ item.changedAt|date:"Y-m-d" }}{{ item.changedAt|time:"H:i:s" }}</td>
+                        <td>{{ item.changer.nickname }}</td>
+                        <td><a href="#" class="btn btn-info" role="button">详细</a></td>
+                        <td><a href="#" class="btn btn-warning" role="button">修改</a></td>
+                        <td><button class="btn btn-danger" role="button" data-id="{{ item.id }}">删除</button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
 {% endblock %}

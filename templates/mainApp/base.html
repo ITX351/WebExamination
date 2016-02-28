@@ -32,11 +32,11 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-basepage">
             <ul class="nav navbar-nav">
                 <li id="homepage"><a href="{% url 'homepage' %}">测试列表</a></li>
-                {% if user.myuser.permission > 0 %}
-                    <li id="problem_management"><a href="#">题库管理</a></li>
+                {% if user.myuser.authority > 0 %}
+                    <li id="problem_management"><a href="{% url 'problem_list' %}">题库管理</a></li>
                     <li id="examination_management"><a href="#">测验管理</a></li>
                 {% endif %}
-                {% if user.myuser.permission > 1 %}
+                {% if user.myuser.authority > 1 %}
                     <li id="user_management"><a href="#">用户管理</a></li>
                 {% endif %}
             </ul>
